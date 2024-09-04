@@ -34,3 +34,27 @@ function checkWin(player) {
 function checkDraw() {
     return board.flat().every(cell => cell !== ' ');
 }
+
+function playGame() {
+    let currentPlayer = 'X';
+    let turns = 0;
+    while (true) {
+        printBoard();
+        let row = prompt(`Player ${currentPlayer}, enter your move row (0 - 2): `);
+        let column = prompt(`Player ${currentPlayer}, enter your move column (0 - 2): `);
+
+        if (makeMove(currentPlayer, row, col)) {
+            turns++;
+            if (checkWin(currentPlayer)) {
+                printBoard();
+                console.log(`Player ${currentPlayer} wins!`);
+                break;
+            } else if (checkDraw()) {
+                printBoard();
+                console.log("It's a draw!");
+                break;
+            }
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+    }
+}
