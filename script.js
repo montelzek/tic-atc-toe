@@ -1,4 +1,4 @@
-let gameBoard = [
+let board = [
     [' ', ' ', ' '],
     [' ', ' ', ' '],
     [' ', ' ', ' ']
@@ -6,7 +6,7 @@ let gameBoard = [
 
 function printBoard() {
     console.log(' 0 1 2')
-    gameBoard.forEach((row, index) => {
+    board.forEach((row, index) => {
         console.log(index, row.join('|'));
     });
 }
@@ -41,7 +41,7 @@ function playGame() {
     while (true) {
         printBoard();
         let row = prompt(`Player ${currentPlayer}, enter your move row (0 - 2): `);
-        let column = prompt(`Player ${currentPlayer}, enter your move column (0 - 2): `);
+        let col = prompt(`Player ${currentPlayer}, enter your move column (0 - 2): `);
 
         if (makeMove(currentPlayer, row, col)) {
             turns++;
@@ -58,3 +58,5 @@ function playGame() {
         }
     }
 }
+
+playGame();
