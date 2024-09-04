@@ -20,5 +20,3 @@ function makeMove(player, row, column) {
         return false;
     }
 }
-
-printBoard();
