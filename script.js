@@ -1,22 +1,29 @@
-const boardArray = [
-    ['X', 'X', 'X'],
-    ['X', 'X', 'X'],
-    ['X', 'X', 'X']
-];
+const gameBoard = (function() {
+    let board = [
+        ['X', 'X', 'X'],
+        ['X', 'X', 'X'],
+        ['X', 'X', 'X']
+    ];
 
-const board = (function () {
-    const printBoard = (row, col) => {
-        const container = document.getElementById('container');
-        boardArray.forEach((sign, index) => {
-
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.textContent('X');
-
-            container.appendChild(cell);
-        })
+    const getBoard = () => {
+        return board;
     };
-    return { printBoard };
+
+    const setCell = (row, col, player) => {
+        if (board[row][col] === ' ') {
+            board[row][col] = player;
+            return true;
+        }
+        return false;
+    };
+
+    const resetBoard = () => {
+        board = [
+            [' ', ' ', ' '],
+            [' ', ' ', ' '],
+            [' ', ' ', ' ']
+        ];
+    }
 })();
 
 board.printBoard();
