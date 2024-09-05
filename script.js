@@ -23,7 +23,8 @@ const gameBoard = (function() {
             [' ', ' ', ' '],
             [' ', ' ', ' ']
         ];
-    }
+    };
+    return { getBoard, setCell, resetBoard };
 })();
 
 board.printBoard();
