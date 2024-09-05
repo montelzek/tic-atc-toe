@@ -1,8 +1,25 @@
-let board = [
-    [' ', ' ', ' '],
-    [' ', ' ', ' '],
-    [' ', ' ', ' ']
+const boardArray = [
+    ['X', 'X', 'X'],
+    ['X', 'X', 'X'],
+    ['X', 'X', 'X']
 ];
+
+const board = (function () {
+    const printBoard = (row, col) => {
+        const container = document.getElementById('container');
+        boardArray.forEach((sign, index) => {
+
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.textContent('X');
+
+            container.appendChild(cell);
+        })
+    };
+    return { printBoard };
+})();
+
+board.printBoard();
 
 function printBoard() {
     console.log(' 0 1 2')
@@ -59,4 +76,3 @@ function playGame() {
     }
 }
 
-playGame();
