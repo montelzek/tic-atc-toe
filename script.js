@@ -69,22 +69,27 @@ const gameController = (function() {
     function checkWin() {
         const board = gameBoard.getBoard();
 
+        // List of winning combinations with cell indices
         const winningLines = [
-            [board[0][0], board[0][1], board[0][2]],
-            [board[1][0], board[1][1], board[1][2]],
-            [board[2][0], board[2][1], board[2][2]],
-            [board[0][0], board[1][0], board[2][0]],
-            [board[0][1], board[1][1], board[2][1]],
-            [board[0][2], board[1][2], board[2][2]],
-            [board[0][0], board[1][1], board[2][2]],
-            [board[0][2], board[1][1], board[2][0]]
+            [[0, 0], [0, 1], [0, 2]], // First row
+            [[1, 0], [1, 1], [1, 2]], // Second row
+            [[2, 0], [2, 1], [2, 2]], // Third row
+            [[0, 0], [1, 0], [2, 0]], // First column
+            [[0, 1], [1, 1], [2, 1]], // Second column
+            [[0, 2], [1, 2], [2, 2]], // Third column
+            [[0, 0], [1, 1], [2, 2]], // Diagonal from top-left
+            [[0, 2], [1, 1], [2, 0]]  // Diagonal from top-right
         ];
 
         for (let line of winningLines) {
             const [a, b, c] = line;
-            if (board[a[0]][a[1]] === currentPlayer && 
-                board[b[0]][b[1]] === currentPlayer && 
-                board[c[0]][c[1]] === currentPlayer) {
+
+            
+            if (
+                board[a[0]][a[1]] === currentPlayer &&
+                board[b[0]][b[1]] === currentPlayer &&
+                board[c[0]][c[1]] === currentPlayer
+            ) {
                 return line; 
             }
         }
@@ -98,34 +103,38 @@ const gameController = (function() {
 
     function handleMove(row, col) {
         if (gameBoard.setCell(row, col, currentPlayer)) {
-            displayController.render();
-            const winningLine = checkWin();
+            displayController.render(); 
+            const winningLine = checkWin(); 
             if (winningLine) {
-                displayController.highlightWinningLine(winningLine);
-                alert(`Player ${currentPlayer} wins!`);
-                gameBoard.resetBoard();
-                setTimeout(() => displayController.render(), 2000);
+                displayController.highlightWinningLine(winningLine); 
+                setTimeout(() => {
+                    alert(`Player ${currentPlayer} wins!`);
+                    gameBoard.resetBoard();
+                    displayController.render(); 
+                }, 100);
                 return;
             } else if (checkTie()) {
-                alert("It's a tie!");
-                gameBoard.resetBoard();
-                displayController.render();
+                setTimeout(() => {
+                    alert("It's a tie!");
+                    gameBoard.resetBoard();
+                    displayController.render();
+                }, 100);
                 return;
             }
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; 
         } else {
-            alert('Invalid move, try again!');
+            alert('Invalid move, try again!'); 
         }
     }
 
     function init() {
-        displayController.render();
+        displayController.render(); 
         document.getElementById('gameBoard').addEventListener('click', (event) => {
             const target = event.target;
             if (target.classList.contains('cell')) {
-                const row = target.dataset.row;
-                const col = target.dataset.col;
-                handleMove(row, col);
+                const row = parseInt(target.dataset.row, 10);
+                const col = parseInt(target.dataset.col, 10);
+                handleMove(row, col); 
             }
         });
     }
