@@ -9,13 +9,28 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 30px;
+    background-color: #f9eeed;
 }
 
-#container {
+#gameBoard {
     width: 600px;
     height: 600px;
-    background-color: blueviolet;
+    background-color: #e2ac97;
     display: grid;
     grid-template-columns: repeat(3, 200px);
     grid-template-rows: repeat(3, 200px);
+}
+
+.cell {
+    background-color: #f3d4d9;
+    margin: 10px;
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.highlight {
+    background-color: #cd4a5f; /* Highlight winning cells */
+    
 }
