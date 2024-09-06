@@ -86,6 +86,17 @@ const gameController = (function() {
     function handleMove(row, col) {
         if (gameBoard.setCell(row, col, currentPlayer)) {
             displayController.render();
+            if (checkWin()) {
+                alert(`Player ${currentPlayer} wins!`);
+                gameBoard.resetBoard();
+                displayController.render();
+                return;
+            } else if (checkTie()) {
+                alert("It's a tie!");
+                gameBoard.resetBoard();
+                displayController.render();
+                return;
+            }
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         } else {
             alert('Invalid move, try again!');
