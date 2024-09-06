@@ -46,10 +46,20 @@ const displayController = (function() {
         });
     }
 
+    function highlightWinningLine(winningCells) {
+        winningCells.forEach(([row, col]) => {
+            const cell = gameBoardElement.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            if (cell) {
+                cell.classList.add('highlight');
+            }
+        });
+    }
+
     return {
         render: function() {
             renderBoard(gameBoard.getBoard());
-        }
+        },
+        highlightWinningLine
     };
 })();
 
@@ -57,7 +67,7 @@ const gameController = (function() {
     let currentPlayer = 'X';
 
     function checkWin() {
-        const board = gameBoard();
+        const board = gameBoard.getBoard();
 
         const winningLines = [
             [board[0][0], board[0][1], board[0][2]],
@@ -71,11 +81,14 @@ const gameController = (function() {
         ];
 
         for (let line of winningLines) {
-            if (line.every(cell => cell === currentPlayer)) {
-                return true;
+            const [a, b, c] = line;
+            if (board[a[0]][a[1]] === currentPlayer && 
+                board[b[0]][b[1]] === currentPlayer && 
+                board[c[0]][c[1]] === currentPlayer) {
+                return line; 
             }
         }
-        return false;
+        return null;
     }
 
     function checkTie() {
@@ -86,10 +99,12 @@ const gameController = (function() {
     function handleMove(row, col) {
         if (gameBoard.setCell(row, col, currentPlayer)) {
             displayController.render();
-            if (checkWin()) {
+            const winningLine = checkWin();
+            if (winningLine) {
+                displayController.highlightWinningLine(winningLine);
                 alert(`Player ${currentPlayer} wins!`);
                 gameBoard.resetBoard();
-                displayController.render();
+                setTimeout(() => displayController.render(), 2000);
                 return;
             } else if (checkTie()) {
                 alert("It's a tie!");
