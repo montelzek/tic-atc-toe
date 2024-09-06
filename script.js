@@ -56,6 +56,33 @@ const displayController = (function() {
 const gameController = (function() {
     let currentPlayer = 'X';
 
+    function checkWin() {
+        const board = gameBoard();
+
+        const winningLines = [
+            [board[0][0], board[0][1], board[0][2]],
+            [board[1][0], board[1][1], board[1][2]],
+            [board[2][0], board[2][1], board[2][2]],
+            [board[0][0], board[1][0], board[2][0]],
+            [board[0][1], board[1][1], board[2][1]],
+            [board[0][2], board[1][2], board[2][2]],
+            [board[0][0], board[1][1], board[2][2]],
+            [board[0][2], board[1][1], board[2][0]]
+        ];
+
+        for (let line of winningLines) {
+            if (line.every(cell => cell === currentPlayer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function checkTie() {
+        const board = gameBoard.getBoard();
+        return board.flat().every(cell => cell !== ' ');
+    }
+
     function handleMove(row, col) {
         if (gameBoard.setCell(row, col, currentPlayer)) {
             displayController.render();
