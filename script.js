@@ -27,14 +27,31 @@ const gameBoard = (function() {
     return { getBoard, setCell, resetBoard };
 })();
 
-board.printBoard();
+const displayController = (function() {
+    
+    const gameBoardElement = document.getElementById('gameBoard');
 
-function printBoard() {
-    console.log(' 0 1 2')
-    board.forEach((row, index) => {
-        console.log(index, row.join('|'));
-    });
-}
+    function renderBoard(board) {
+        gameBoardElement.innerHTML = '';
+
+        board.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                const cellElement = document.createElement('div');
+                cellElement.classList.add('cell');
+                cellElement.textContent = cell;
+                cellElement.dataset.row = rowIndex;
+                cellElement.dataset.col = colIndex;
+                gameBoardElement.appendChild(cellElement);
+            });
+        });
+    }
+
+    return {
+        render: function() {
+            renderBoard(gameBoard.getBoard());
+        }
+    };
+})();
 
 function makeMove(player, row, column) {
     if (board[row][column] === ' ') {
