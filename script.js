@@ -1,8 +1,8 @@
 const gameBoard = (function() {
     let board = [
-        ['X', 'X', 'X'],
-        ['X', 'X', 'X'],
-        ['X', 'X', 'X']
+        [' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
     ];
 
     const getBoard = () => {
@@ -52,6 +52,37 @@ const displayController = (function() {
         }
     };
 })();
+
+const gameController = (function() {
+    let currentPlayer = 'X';
+
+    function handleMove(row, col) {
+        if (gameBoard.setCell(row, col, currentPlayer)) {
+            displayController.render();
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        } else {
+            alert('Invalid move, try again!');
+        }
+    }
+
+    function init() {
+        displayController.render();
+        document.getElementById('gameBoard').addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.classList.contains('cell')) {
+                const row = target.dataset.row;
+                const col = target.dataset.col;
+                handleMove(row, col);
+            }
+        });
+    }
+
+    return {
+        init
+    };
+})();
+
+gameController.init();
 
 function makeMove(player, row, column) {
     if (board[row][column] === ' ') {
