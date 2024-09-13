@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>TIC TAC TOE</h1>
-    <div id="container"></div>
+    <div id="controls">
+        <h2>Enter Player Names</h2>
+        <input type="text" id="player1" placeholder="Player X Name">
+        <input type="text" id="player2" placeholder="Player O Name">
+        <button id="startGame">Start Game</button>
+    </div>
+    <div id="gameBoard" class="board"></div>
+    <div id="result"></div>
     <script src="./script.js"></script>
 </body>
 </html>
