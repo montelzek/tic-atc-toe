@@ -187,13 +187,30 @@ const gameController = (function() {
         document.getElementById('gameContainer').style.display = 'flex';
     }
 
+    function restartRound() {
+        gameBoard.resetBoard();
+        currentPlayer = 'X';
+        displayController.clearResult();
+        displayController.render();
+    }
+
+    function restartGame() {
+        scores = { X: 0, O: 0 };
+        restartRound();
+        displayController.updateScores(scores);
+    }
+
     return {
         init,
-        startGame
+        startGame,
+        restartRound,
+        restartGame
     };
 })();
 
 document.getElementById('startGame').addEventListener('click', gameController.startGame);
+document.getElementById('restartRound').addEventListener('click', gameController.restartRound);
+document.getElementById('restartGame').addEventListener('click', gameController.restartGame);
 gameController.init();
 
 
