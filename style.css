@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: "Nerko One", cursive;
 }
 
 body {
@@ -9,28 +10,34 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    background-color: #f9eeed;
+    background-color: rgb(249, 249, 249);
 }
 
 #gameBoard {
-    width: 600px;
-    height: 600px;
-    background-color: #e2ac97;
+    width: 300px;
+    height: 300px;
+    background-color: rgb(249, 249, 249);
     display: grid;
-    grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(3, 200px);
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
 }
 
 .cell {
-    background-color: #f3d4d9;
-    margin: 10px;
-    font-size: 100px;
+    background-color: rgb(228, 228, 228);
+    border-radius: 20px;
+    margin: 5px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.highlight {
-    background-color: #cd4a5f; /* Highlight winning cells */
-    
+.cell:hover {
+    background-color: rgb(164, 164, 164);
+    cursor: pointer;
 }
+
+.highlight {
+    background-color: rgb(164, 164, 164);
+}
+
