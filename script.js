@@ -30,6 +30,7 @@ const gameBoard = (function() {
 const displayController = (function() {
     
     const gameBoardElement = document.getElementById('gameBoard');
+    const resultElement = document.getElementById('result');
 
     function renderBoard(board) {
         gameBoardElement.innerHTML = '';
@@ -55,16 +56,28 @@ const displayController = (function() {
         });
     }
 
+    function displayResult(message) {
+        resultElement.textContent = message;
+    }
+
+    function clearResult() {
+        resultElement.textContent = '';
+    }
+
     return {
         render: function() {
             renderBoard(gameBoard.getBoard());
         },
-        highlightWinningLine
+        highlightWinningLine,
+        displayResult,
+        clearResult
     };
 })();
 
 const gameController = (function() {
     let currentPlayer = 'X';
+    let playerXName = 'Player X';
+    let playerOName = 'Player O';
 
     function checkWin() {
         const board = gameBoard.getBoard();
@@ -106,19 +119,20 @@ const gameController = (function() {
             displayController.render(); 
             const winningLine = checkWin(); 
             if (winningLine) {
-                displayController.highlightWinningLine(winningLine); 
+                displayController.highlightWinningLine(winningLine);
+                const winnerName = currentPlayer === 'X' ? playerXName : playerOName;
+                displayController.displayResult(`Player ${winnerName} wins!`); 
                 setTimeout(() => {
-                    alert(`Player ${currentPlayer} wins!`);
                     gameBoard.resetBoard();
                     displayController.render(); 
-                }, 100);
+                }, 2000);
                 return;
             } else if (checkTie()) {
+                displayController.displayResult("It's a tie!");
                 setTimeout(() => {
-                    alert("It's a tie!");
                     gameBoard.resetBoard();
                     displayController.render();
-                }, 100);
+                }, 2000);
                 return;
             }
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X'; 
@@ -129,6 +143,7 @@ const gameController = (function() {
 
     function init() {
         displayController.render(); 
+        displayController.clearResult();
         document.getElementById('gameBoard').addEventListener('click', (event) => {
             const target = event.target;
             if (target.classList.contains('cell')) {
@@ -139,11 +154,22 @@ const gameController = (function() {
         });
     }
 
+    function startGame() {
+        playerXName = document.getElementById('playerX').value || 'Player X';
+        playerOName = document.getElementById('playerO').value || 'Player O';
+        currentPlayer = 'X';
+        gameBoard.resetBoard();
+        displayController.render();
+        displayController.clearResult();
+    }
+
     return {
-        init
+        init,
+        startGame
     };
 })();
 
+document.getElementById('startGame').addEventListener('click', gameController.startGame);
 gameController.init();
 
 
