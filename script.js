@@ -31,6 +31,10 @@ const displayController = (function() {
     
     const gameBoardElement = document.getElementById('gameBoard');
     const resultElement = document.getElementById('result');
+    const playerXNameElement = document.getElementById('playerXName');
+    const playerONameElement = document.getElementById('playerOName');
+    const playerXScoreElement = document.getElementById('playerXScore');
+    const playerOScoreElement = document.getElementById('playerOScore');
 
     function renderBoard(board) {
         gameBoardElement.innerHTML = '';
@@ -64,13 +68,25 @@ const displayController = (function() {
         resultElement.textContent = '';
     }
 
+    function updatePlayerNames(playerX, playerO) {
+        playerXNameElement.textContent = playerX;
+        playerONameElement.textContent = playerO;
+    }
+
+    function updateScores(scores) {
+        playerXScoreElement.textContent = scores.X;
+        playerOScoreElement.textContent = scores.O;
+    }
+
     return {
         render: function() {
             renderBoard(gameBoard.getBoard());
         },
         highlightWinningLine,
         displayResult,
-        clearResult
+        clearResult,
+        updatePlayerNames,
+        updateScores
     };
 })();
 
@@ -78,6 +94,7 @@ const gameController = (function() {
     let currentPlayer = 'X';
     let playerXName = 'Player X';
     let playerOName = 'Player O';
+    let scores = { X: 0, O: 0 };
 
     function checkWin() {
         const board = gameBoard.getBoard();
@@ -121,7 +138,9 @@ const gameController = (function() {
             if (winningLine) {
                 displayController.highlightWinningLine(winningLine);
                 const winnerName = currentPlayer === 'X' ? playerXName : playerOName;
-                displayController.displayResult(`Player ${winnerName} wins!`); 
+                displayController.displayResult(`Player ${winnerName} wins!`);
+                scores[currentPlayer]++;
+                displayController.updateScores(scores); 
                 setTimeout(() => {
                     gameBoard.resetBoard();
                     displayController.render(); 
@@ -159,8 +178,13 @@ const gameController = (function() {
         playerOName = document.getElementById('playerO').value || 'Player O';
         currentPlayer = 'X';
         gameBoard.resetBoard();
+        displayController.updatePlayerNames(playerXName, playerOName);
+        displayController.updateScores(scores);
         displayController.render();
         displayController.clearResult();
+
+        document.getElementById('formContainer').style.display = 'none';
+        document.getElementById('gameContainer').style.display = 'flex';
     }
 
     return {
