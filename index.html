@@ -11,13 +11,25 @@
 </head>
 <body>
     <h1>TIC TAC TOE</h1>
-    <div id="controls">
+    <div id="formContainer">
         <h2>Enter Player Names</h2>
-        <input type="text" id="player1" placeholder="Player X Name">
-        <input type="text" id="player2" placeholder="Player O Name">
+        <input type="text" id="playerX" placeholder="Player X Name">
+        <input type="text" id="playerO" placeholder="Player O Name">
         <button id="startGame">Start Game</button>
     </div>
-    <div id="gameBoard" class="board"></div>
+    <div id="gameContainer">
+        <div class="playerInfo" id="playerXInfo">
+            <h2 id="playerXName">Player X</h2>
+            <p>Score: <span id="playerXScore">0</span></p>
+        </div>
+    
+        <div id="gameBoard"></div>
+    
+        <div class="playerInfo" id="playerOInfo">
+            <h2 id="playerOName">Player O</h2>
+            <p>Score: <span id="playerOScore">0</span></p>
+        </div>
+    </div>
     <div id="result"></div>
     <script src="./script.js"></script>
 </body>
