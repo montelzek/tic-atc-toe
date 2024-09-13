@@ -44,11 +44,20 @@ body {
 #formContainer {
     display: flex;
     flex-direction: column;
+    gap: 10px;
     align-items: center;
 }
 
 #gameContainer {
     display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#board-names {
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;

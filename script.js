@@ -132,6 +132,7 @@ const gameController = (function() {
     }
 
     function handleMove(row, col) {
+        displayController.clearResult();
         if (gameBoard.setCell(row, col, currentPlayer)) {
             displayController.render(); 
             const winningLine = checkWin(); 
