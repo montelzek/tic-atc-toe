@@ -151,9 +151,11 @@ const gameController = (function() {
                 return;
             } else if (checkTie()) {
                 displayController.displayResult("It's a tie!");
+                disableBoardInteraction();
                 setTimeout(() => {
                     gameBoard.resetBoard();
                     displayController.render();
+                    enableBoardInteractions();
                 }, 2000);
                 return;
             }
