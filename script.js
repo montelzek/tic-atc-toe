@@ -140,11 +140,13 @@ const gameController = (function() {
                 displayController.highlightWinningLine(winningLine);
                 const winnerName = currentPlayer === 'X' ? playerXName : playerOName;
                 displayController.displayResult(`Player ${winnerName} wins!`);
+                disableBoardInteraction();
                 scores[currentPlayer]++;
                 displayController.updateScores(scores); 
                 setTimeout(() => {
                     gameBoard.resetBoard();
                     displayController.render(); 
+                    enableBoardInteractions();
                 }, 2000);
                 return;
             } else if (checkTie()) {
@@ -201,11 +203,21 @@ const gameController = (function() {
         displayController.updateScores(scores);
     }
 
+    function disableBoardInteraction() {
+        document.getElementById('gameBoard').style.pointerEvents = 'none';
+    }
+
+    function enableBoardInteractions() {
+        document.getElementById('gameBoard').style.pointerEvents = 'auto';
+    }
+
     return {
         init,
         startGame,
         restartRound,
-        restartGame
+        restartGame,
+        disableBoardInteraction, 
+        enableBoardInteractions
     };
 })();
 
