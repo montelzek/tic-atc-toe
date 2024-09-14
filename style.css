@@ -13,12 +13,25 @@ h2 {
     font-size: 30px;
 }
 
-input {
-    width: 200px;
-    height: 30px;
+input, button {
     border-radius: 10px;
     border: 1.5px solid black;
+    height: 30px;
+}
+
+input {
+    width: 200px;
     padding-left: 7px;
+}
+
+button {
+    width: 100px;
+    font-size: 15px;
+}
+
+button:hover {
+    background-color: rgb(186, 184, 184);
+    cursor: pointer;
 }
 
 body {
